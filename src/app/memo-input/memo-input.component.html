@@ -1,0 +1,7 @@
+<input [(ngModel)]="title">
+<input [(ngModel)]="body">
+<input *ngIf="memo" type="checkbox" [(ngModel)]="finished">
+
+<button *ngIf="!memo" (click)="onCreate()">Create</button>
+<button *ngIf="memo" (click)="onUpdate()">Update</button>
+<button *ngIf="memo" (click)="onCancel()">Cancel</button>

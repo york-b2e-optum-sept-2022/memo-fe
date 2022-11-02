@@ -1,5 +1,19 @@
-<!--<app-register *ngIf="!isLoggedIn"></app-register>-->
-<app-login *ngIf="!isLoggedIn"></app-login>
+<div *ngIf="!isLoggedIn">
+  <app-register *ngIf="isRegistering"></app-register>
+  <app-login *ngIf="!isRegistering"></app-login>
+  <br>
+  <button (click)="onClick()">
+    {{isRegistering ? "Login" : "Create Account" }}
+  </button>
+</div>
+
 <div *ngIf="isLoggedIn">
-  LOGGED IN
+  <button (click)="onLogout()">logout</button>
+  <div *ngIf="memoToUpdate">
+    <app-memo-input [memo]="memoToUpdate" ></app-memo-input>
+  </div>
+  <div *ngIf="!memoToUpdate">
+    <app-memo-input></app-memo-input>
+    <app-memo-list></app-memo-list>
+  </div>
 </div>

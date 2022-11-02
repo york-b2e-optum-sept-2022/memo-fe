@@ -11,8 +11,11 @@ export class AccountService {
   $account = new BehaviorSubject<IAccount | null>(null);
 
   $loginError = new BehaviorSubject<string>("");
+  $registrationError = new BehaviorSubject<string>("");
+
   private USERNAME_TAKEN_ERROR = "Username is already in use"
   private UNKNOWN_ERROR = "Unknown error, please try again"
+  private LOGIN_ERROR = "Invalid login, please try again"
 
   constructor(private httpService: HttpService) {
   }
@@ -23,8 +26,7 @@ export class AccountService {
         this.$account.next(account);
       },
       error: (err) => {
-        // TODO - display error to user
-        console.error(err)
+        this.$loginError.next(this.LOGIN_ERROR);
       }
     })
   }
@@ -37,11 +39,11 @@ export class AccountService {
         },
         error: (err) => {
           if (err.status === 409) {
-            this.$loginError.next(this.USERNAME_TAKEN_ERROR);
+            this.$registrationError.next(this.USERNAME_TAKEN_ERROR);
             return;
           }
 
-          this.$loginError.next(this.UNKNOWN_ERROR);
+          this.$registrationError.next(this.UNKNOWN_ERROR);
         }
       })
   }

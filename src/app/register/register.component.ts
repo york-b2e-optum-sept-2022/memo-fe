@@ -16,7 +16,7 @@ export class RegisterComponent implements OnDestroy {
   subscription: Subscription;
 
   constructor(private accountService: AccountService) {
-    this.subscription = this.accountService.$loginError.subscribe((errorMessage) => {
+    this.subscription = this.accountService.$registrationError.subscribe((errorMessage) => {
       this.errorMessage = errorMessage;
     });
   }

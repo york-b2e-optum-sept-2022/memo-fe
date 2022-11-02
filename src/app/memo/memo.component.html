@@ -1,0 +1,10 @@
+<div>
+  title: {{memo.title}}
+  body: {{memo.body}}
+  date: {{memo.createdDate | date}}
+  finished: {{memo.finished}}
+</div>
+
+<button (click)="onDelete()">delete</button>
+<button (click)="onUpdate()">update</button>
+

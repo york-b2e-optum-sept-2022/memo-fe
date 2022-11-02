@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AccountService} from "../account.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy {
 
   username: string = "";
   password: string = "";
   errorMessage: string = "";
 
-  constructor(private accountService: AccountService) { }
+  subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(private accountService: AccountService) {
+    this.subscription = this.accountService.$loginError.subscribe((errorMessage) => {
+      this.errorMessage = errorMessage;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onClick() {

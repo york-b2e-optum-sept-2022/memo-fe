@@ -6,12 +6,18 @@ import {RegisterComponent} from './register/register.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
+import { MemoInputComponent } from './memo-input/memo-input.component';
+import { MemoListComponent } from './memo-list/memo-list.component';
+import { MemoComponent } from './memo/memo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MemoInputComponent,
+    MemoListComponent,
+    MemoComponent
   ],
   imports: [
     BrowserModule,
