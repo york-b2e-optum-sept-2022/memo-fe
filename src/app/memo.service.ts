@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {HttpService} from "./http.service";
 import {AccountService} from "./account.service";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, first} from "rxjs";
 import {IMemo} from "./interface/IMemo";
 
 @Injectable({
@@ -19,7 +19,7 @@ export class MemoService {
           this.getMemoList();
         }
       }
-    )
+    );
   }
 
   public create(title: string, body: string) {
@@ -29,7 +29,7 @@ export class MemoService {
       return;
     }
 
-    this.httpService.createMemo(title, body, account.id).subscribe({
+    this.httpService.createMemo(title, body, account.id).pipe(first()).subscribe({
       next: (memo) => {
         let memoList: IMemo[] = [...this.$memoList.getValue()];
         memoList.push(memo);
@@ -39,7 +39,7 @@ export class MemoService {
         console.error(err);
         // TODO - handle error
       }
-    })
+    });
   }
 
   public getMemoList() {
@@ -49,7 +49,7 @@ export class MemoService {
       return;
     }
 
-    this.httpService.getMemoList(account.id).subscribe({
+    this.httpService.getMemoList(account.id).pipe(first()).subscribe({
       next: (memoList) => {
         this.$memoList.next(memoList);
       },
@@ -61,7 +61,7 @@ export class MemoService {
   }
 
   public deleteMemo(memoToDeleteId: number) {
-    this.httpService.deleteMemo(memoToDeleteId).subscribe({
+    this.httpService.deleteMemo(memoToDeleteId).pipe(first()).subscribe({
       next: () => {
         let memoList: IMemo[] = [...this.$memoList.getValue()];
         this.$memoList.next(
@@ -76,7 +76,7 @@ export class MemoService {
   }
 
   public updateMemo(id: number, title: string, body: string, finished: boolean) {
-    this.httpService.updateMemo(id, title, body, finished).subscribe({
+    this.httpService.updateMemo(id, title, body, finished).pipe(first()).subscribe({
       next: (newMemo) => {
         let memoList: IMemo[] = [...this.$memoList.getValue()];
         this.$memoList.next(

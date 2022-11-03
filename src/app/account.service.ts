@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {IAccount} from "./interface/IAccount";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, first} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AccountService {
   }
 
   public login(username: string, password: string) {
-    this.httpService.login(username,password).subscribe({
+    this.httpService.login(username,password).pipe(first()).subscribe({
       next: (account) => {
         this.$account.next(account);
       },
@@ -33,6 +33,7 @@ export class AccountService {
 
   public createAccount(username: string, password: string) {
     this.httpService.createAccount(username, password)
+      .pipe(first())
       .subscribe({
         next: (account) => {
           this.$account.next(account);
