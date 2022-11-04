@@ -22,7 +22,7 @@ import { MemoComponent } from './memo/memo.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

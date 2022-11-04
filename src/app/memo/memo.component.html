@@ -1,10 +1,16 @@
-<div>
-  title: {{memo.title}}
-  body: {{memo.body}}
-  date: {{memo.createdDate | date}}
-  finished: {{memo.finished}}
+<div class="card m-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{memo.title}}
+      <span *ngIf="memo.finished" class="badge text-bg-primary float-end">Finished</span>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{memo.createdDate | date}}</h6>
+    <p class="card-text">{{memo.body}}</p>
+
+    <div class="d-flex justify-content-around">
+      <button (click)="onDelete()" class="btn btn-sm btn-outline-danger">Delete</button>
+      <button (click)="onUpdate()" class="btn btn-sm btn-outline-primary">Update</button>
+    </div>
+
+  </div>
 </div>
-
-<button (click)="onDelete()">delete</button>
-<button (click)="onUpdate()">update</button>
-
